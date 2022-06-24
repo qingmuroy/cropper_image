@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="/path/to/cropper.css" rel="stylesheet">
+    <script type="text/javascript" src="https://www.incopat.com/resources/js/framework/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="./libs/cropper.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/cropper.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+</head>
+
+<body>
+    <div class="img-box">
+        <h1>裁剪后图片--预览</h1>
+        <img src="" alt="" id="imgBoxId" class="imgBox">
+    </div>
+
+    <div class="s-upload-container">
+        <div class="head">
+            <span>上传图片</span>
+        </div>
+        <div class="s-upload-main">
+            <!-- 上传图片 -->
+            <div class="top-box">
+                <span class="title">图片上传</span>
+                <div class="btn file-box">
+                    选择文件
+                    <!-- onchange="selectImg(this)" -->
+                    <input type="file" accept="image/jpg,image/jpeg,image/png" name="file" id="file" class="btn" multiple="multiple">
+                </div>
+                <div class="right">预览区域</div>
+            </div>
+            <div class="s-upload-content">
+                <!-- 裁剪区域 -->
+                <div class="left-box">
+                    <img src="" id="imageId" alt="" class="image">
+                </div>
+                <!-- 预览区域 -->
+                <div class="right-box">
+                    <div class="previewBox"></div>
+                </div>
+            </div>
+            <div class="action bottom-box">
+                <!-- 旋转 -->
+                <div class="left">
+                    <input type="button" id="btnLeft" value="向左旋转" class="btn" onclick="rotateFn('1')">
+                    <input type="button" id="btnRight" value="向右旋转" class="btn" onclick="rotateFn('2')">
+                </div>
+                <div class="right">
+                    <!-- 裁剪、放大、缩小、还原 -->
+                    <input type="button" id="btnCrop" class="btn" value="裁剪">
+                    <input type="button" id="btnLarge" class="btn" value="放大">
+                    <input type="button" id="btnSmall" class="btn" value="缩小">
+                    <input type="button" id="btnScale" class="btn" value="换向">
+                    <input type="button" id="btnInit" class="btn" value="还原">
+                    <!-- 保存 -->
+                    <input type="button" id="btnSubmit" class="btn submit" value="保存修改">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

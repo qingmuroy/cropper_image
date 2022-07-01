@@ -86,6 +86,7 @@ export class UI extends BasicUI {
 		// 复位
 		$("#btnInit").on("click", ()=>{
 			$('#imageId').cropper("clear");
+			$('#imageId').cropper("reset");
 		});
 		// 放大
 		$("#btnLarge").bind("click", ()=>{
@@ -161,16 +162,15 @@ export class UI extends BasicUI {
 	}
 	rotateFn(type) {
 		if(type == 1){
-			this.deg += 90
+			this.deg = -90
 		} else {
-			this.deg -= 90
+			this.deg = 90
 		}
 		$('#imageId').cropper("rotate", this.deg);
 	}
 	selectImg(file) {
 		this.initImage(0*0, this.isCrop)
 		// if (!file.files || !file.files[0]){
-		// 	alert("是走这里了")
 		// 		return;
 		// }
 		var reader = new FileReader();

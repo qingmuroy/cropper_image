@@ -11,10 +11,12 @@ export class UI extends BasicUI {
 		this.isCrop = 'none'
 		this.init();
 		this.initEvent();
+		
 	}
 
 	init() {
 		this.addEvent()
+		$("#img_box").hide()
 	}
 
 	initEvent() {
@@ -55,7 +57,7 @@ export class UI extends BasicUI {
 					// var file = base64toFile(base64url)
 					// formData.append('__avatar1',file );
 
-					// $.ajax({
+					// $.ajax({ 
 						// 	type:'post',
 						// 	url: '/index.php?r=news/imgupload/toupload',
 						// 	cache: false,
@@ -68,18 +70,22 @@ export class UI extends BasicUI {
 						
 					// }).fail(function(err){ console.log(err)})
 			}
-			$('#imageId').cropper("destroy");
-			$("#file").val("")
-			this.isCrop = 'none'
+			this.handleHide()
 		});
+		// 删除图片
+		$(".close-img").bind("click", ()=>{
+			this.handleHide()
+		})
 		// 选择图片
 		$("#file").bind("change", (e)=>{
-			console.log(e)
+			// if($(e.target).val()) {
+			// 	$(e.target).val("")
+			// }
 			this.selectImg(e.target)
 		})
 		// 复位
 		$("#btnInit").on("click", ()=>{
-			$('#imageId').cropper("reset");
+			$('#imageId').cropper("clear");
 		});
 		// 放大
 		$("#btnLarge").bind("click", ()=>{
@@ -88,7 +94,7 @@ export class UI extends BasicUI {
 		// 裁剪
 		$("#btnCrop").bind("click", ()=>{
 			this.isCrop = 'crop'
-			$('.cropper-drag-box').attr("data-cropper-action", 'crop')
+			$('.cropper-drag-box').attr("data-cropper-action", 'crop').addClass('cropper-crop cropper-modal')
 		});
 		
 		// 缩小
@@ -108,7 +114,13 @@ export class UI extends BasicUI {
 		});
 
 	}
-	initImage(cut_size, isCrop) {
+	handleHide() {
+		$('#imageId').cropper("destroy");
+			$("#file").val("")
+			$(".close-img").hide()
+			$("#img_box").hide()
+	}
+	initImage(cut_size) {
 		
 		var sizeArr = [0,0];
 		var aspectRatio = null
@@ -125,11 +137,11 @@ export class UI extends BasicUI {
 		// }
 		$('#imageId').cropper({
 			viewMode: 1,
-			dragMode: isCrop,
+			dragMode: 'none',
 			initialAspectRatio: 1,
 			preview: '.previewBox',
 			// 是否在容器上显示网格背景
-			background: true,
+			background: false,
 			// 定义自动剪裁区域的大小
 			// autoCropArea: 1,
 			// 是否允许鼠标 缩放图片
@@ -145,6 +157,7 @@ export class UI extends BasicUI {
 			// 初始化时，自动裁剪图片
 			autoCrop: false,
 		})
+		$('.close-img').show()
 	}
 	rotateFn(type) {
 		if(type == 1){
@@ -155,17 +168,17 @@ export class UI extends BasicUI {
 		$('#imageId').cropper("rotate", this.deg);
 	}
 	selectImg(file) {
-		this.initImage(0, this.isCrop)
-		if (!file.files || !file.files[0]){
-				return;
-		}
+		this.initImage(0*0, this.isCrop)
+		// if (!file.files || !file.files[0]){
+		// 	alert("是走这里了")
+		// 		return;
+		// }
 		var reader = new FileReader();
 		reader.onload = function (evt) {
-				var replaceSrc = evt.target.result;
-
-				//更换cropper的图片
-				$('#imageId').cropper('replace', replaceSrc,false);//默认false，适应高度，不失真
-				
+			var replaceSrc = evt.target.result;
+			$("#img_box").show()
+			// 更换cropper的图片
+			$('#imageId').cropper('replace', replaceSrc, false);//默认false，适应高度，不失真
 		}
 		reader.readAsDataURL(file.files[0]);
 	}
